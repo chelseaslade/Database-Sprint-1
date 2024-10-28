@@ -48,26 +48,51 @@ VALUES
 ('Suki', 'Dog', 'sukidog@stinkydog.com', '555-241-4252'), --4
 ('Bif', 'Cat', 'bifthecat@goodcat.com', '555-242-5632'); --5
 
-INSERT INTO rentals (customer_id, rental_id, rental_date, return_date)
+INSERT INTO rentals (customer_id, movie_id, rental_date, return_date)
 VALUES
-(1, 2, '2024-10-22', '2024-11-04'),
-(2, 4, '2024-09-10', '2024-09-30'),
-(1, 1, '2024-04-24', '2024-05-01'),
-(3, 1, '2024-09-15', '2024-09-25'),
-(4, 2, '2024-06-10', '2024-06-20'),
-(5, 3, '2024-07-12', '2024-07-22'),
-(2, 3, '2024-10-26', '2024-11-06'),
-(3, 5, '2024-10-28', '2024-11-10'),
-(4, 1, '2024-09-15', '2024-09-26'),
-(5, 5, '2024-10-13', '2024-11-03');
+(1, 2, '2024-10-22', '2024-11-04'), --1
+(2, 4, '2024-09-10', '2024-09-30'), --2
+(1, 1, '2024-04-24', '2024-05-01'), --3
+(3, 1, '2024-09-15', '2024-09-25'), --4
+(4, 2, '2024-06-10', '2024-06-20'), --5
+(5, 3, '2024-07-12', '2024-07-22'), --6
+(2, 3, '2024-10-26', '2024-11-06'), --7
+(3, 5, '2024-10-28', '2024-11-10'), --8
+(4, 1, '2024-09-15', '2024-09-26'), --9
+(5, 5, '2024-10-13', '2024-11-03'); --10
 
 --Queries
 --Find all movies by specific customer given their email
+SELECT CONCAT(customers.first_name, ' ', customers.last_name) AS full_name, movies.title
+FROM rentals
+JOIN customers ON rentals.customer_id = customers.id
+JOIN movies ON rentals.movie_id = movies.id
+WHERE email = 'pippycat@badcat.com';
 
 --Given a movie title, list all customers who have rented the movie
+SELECT CONCAT(customers.first_name, ' ', customers.last_name) AS full_name
+FROM rentals
+JOIN customers ON rentals.customer_id = customers.id
+JOIN movies ON rentals.movie_id = movies.id
+WHERE movies.title = 'Barbie';
 
 --Get the rental history for a specific movie title
+SELECT CONCAT(customers.first_name, ' ', customers.last_name) AS full_name, movies.title, rental_date, return_date
+FROM rentals
+JOIN movies ON rentals.movie_id = movies.id
+JOIN customers ON rentals.customer_id = customers.id
+WHERE movies.title = 'Nope';
 
 --For a specific movie dirctor, find the name of the customer, date of rental, title of movie, each time a movie by the director was rented
+SELECT movies.director, CONCAT(customers.first_name, ' ', customers.last_name) AS full_name, movies.title, rental_date
+FROM rentals
+JOIN movies ON rentals.movie_id = movies.id
+JOIN customers ON rentals.customer_id = customers.id
+WHERE movies.director = 'Ridley Scott';
 
 --List all currently rented out movies (return date not met)
+SELECT CONCAT(customers.first_name, ' ', customers.last_name) AS full_name, movies.title, rental_date, return_date
+FROM rentals
+JOIN movies ON rentals.movie_id = movies.id
+JOIN customers ON rentals.customer_id = customers.id
+WHERE return_date > current_date;
