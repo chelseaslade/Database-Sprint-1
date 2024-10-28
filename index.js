@@ -106,7 +106,7 @@ async function displayMovies() {
 async function updateCustomerEmail(customerId, newEmail) {
   // TODO: Add code to update a customer's email address
   const query = {
-    text: `UPDATE customers SET email = $2 WHERE id = $1 `,
+    text: "UPDATE customers SET email = $2 WHERE id = $1",
     values: [customerId, newEmail],
   };
 
@@ -125,6 +125,35 @@ async function updateCustomerEmail(customerId, newEmail) {
  */
 async function removeCustomer(customerId) {
   // TODO: Add code to remove a customer and their rental history
+  const query1 = {
+    text: `
+    DELETE FROM rentals WHERE customer_id = $1;
+    `,
+    values: [customerId],
+  };
+
+  try {
+    await pool.query(query1);
+    console.log("Customer deleted from rental history.");
+  } catch (error) {
+    console.error(
+      "Error encountered while trying to delete customer from rental history."
+    );
+  }
+
+  const query2 = {
+    text: `DELETE FROM customers WHERE id = $1;`,
+    values: [customerId],
+  };
+
+  try {
+    await pool.query(query2);
+    console.log("Customer deleted from database.");
+  } catch (error) {
+    console.error(
+      "Error encountered while trying to delete customer from database.."
+    );
+  }
 }
 
 /**
