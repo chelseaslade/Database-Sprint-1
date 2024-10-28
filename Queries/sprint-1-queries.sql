@@ -12,8 +12,23 @@ CREATE TABLE movies (
 );
 
 --Customers
+CREATE TABLE customers (
+    id serial NOT NULL PRIMARY KEY,
+    first_name varchar(100),
+    last_name varchar(100),
+    email varchar(200),
+    phone_num varchar(15)
+);
 
 --Rentals
+CREATE TABLE rentals (
+    customer_id int,
+    movie_id int,
+    rental_date DATE,
+    return_date DATE,
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (movie_id) REFERENCES movies(id)
+);
 
 --Insert Data (5 movies, 5 customers, 10 rentals)
 
