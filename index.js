@@ -18,7 +18,7 @@ async function createTable() {
   CREATE TABLE IF NOT EXISTS movies (
     id serial NOT NULL PRIMARY KEY,
     title varchar(100),
-    releaseYear int,
+    release_year int,
     genre varchar(100),
     director varchar(100)
 );
@@ -61,7 +61,7 @@ async function createTable() {
 async function insertMovie(title, year, genre, director) {
   // TODO: Add code to insert a new movie into the Movies table
   const query = {
-    text: "INSERT INTO movies (title, releaseYear, genre, director) VALUES ($1, $2, $3, $4)",
+    text: "INSERT INTO movies (title, release_year, genre, director) VALUES ($1, $2, $3, $4)",
     values: [title, year, genre, director],
   };
 
@@ -78,6 +78,23 @@ async function insertMovie(title, year, genre, director) {
  */
 async function displayMovies() {
   // TODO: Add code to retrieve and print all movies from the Movies table
+  const query = "SELECT * FROM movies";
+
+  try {
+    const result = await pool.query(query);
+
+    if (result.rows.length > 0) {
+      result.rows.forEach((row) => {
+        console.log(
+          `${row.id}: ${row.title}: ${row.release_year}: ${row.genre}: ${row.director}`
+        );
+      });
+    } else {
+      console.log("No items to display in table.");
+    }
+  } catch (error) {
+    console.error("Error displaying table contents.");
+  }
 }
 
 /**

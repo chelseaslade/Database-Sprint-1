@@ -6,7 +6,7 @@
 --Movies
 CREATE TABLE movies (
     id serial NOT NULL PRIMARY KEY,
-    releaseYear varchar(5),
+    releaseYear int,
     title varchar(100),
     genre varchar(100),
     director varchar(100)
@@ -33,7 +33,7 @@ CREATE TABLE rentals (
 );
 
 --Insert Data (5 movies, 5 customers, 10 rentals)
-INSERT INTO movies (title,releaseYear, genre, director)
+INSERT INTO movies (title, release_year, genre, director)
 VALUES
 ('Barbie', '2023', 'Comedy', 'Greta Gerwig'), --1
 ('Top Gun: Maverick', '2022', 'Action', 'Joseph Kosinski'), --2
