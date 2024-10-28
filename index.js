@@ -105,6 +105,17 @@ async function displayMovies() {
  */
 async function updateCustomerEmail(customerId, newEmail) {
   // TODO: Add code to update a customer's email address
+  const query = {
+    text: `UPDATE customers SET email = $2 WHERE id = $1 `,
+    values: [customerId, newEmail],
+  };
+
+  try {
+    await pool.query(query);
+    console.log("Customer email updated!");
+  } catch (error) {
+    console.error("Error encounted updating customer email.");
+  }
 }
 
 /**
