@@ -27,10 +27,39 @@ CREATE TABLE rentals (
     rental_date DATE,
     return_date DATE,
     FOREIGN KEY (customer_id) REFERENCES customers(id),
-    FOREIGN KEY (movie_id) REFERENCES movies(id)
+    FOREIGN KEY (movie_id) REFERENCES movies(id),
+    PRIMARY KEY (customer_id, movie_id)
 );
 
 --Insert Data (5 movies, 5 customers, 10 rentals)
+INSERT INTO movies (title, genre, director)
+VALUES
+('Barbie', 'Comedy', 'Greta Gerwig'),
+('Top Gun: Maverick', 'Action', 'Joseph Kosinski'),
+('Nope', 'Horror', 'Jordan Peele'),
+('Parasite', 'Thriller', 'Bong Joon-ho'),
+('The Martian', 'Drama', 'Ridley Scott');
+
+INSERT INTO customers (first_name, last_name, email, phone_num)
+VALUES
+('Chelsea', 'Slade', 'chelseaslade@email.com', '555-435-2342'),
+('Noah', 'Slade', 'noahslade@email.com', '555-532-5353'),
+('Pip', 'Cat', 'pippycat@badcat.com', '555-340-2341'),
+('Suki', 'Dog', 'sukidog@stinkydog.com', '555-241-4252'),
+('Bif', 'Cat', 'bifthecat@goodcat.com', '555-242-5632');
+
+INSERT INTO rentals (customer_id, rental_id, rental_date, return_date)
+VALUES
+(),
+(),
+(),
+(),
+(),
+(),
+(),
+(),
+(),
+();
 
 --Queries
 --Find all movies by specific customer given their email
